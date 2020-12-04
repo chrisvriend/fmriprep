@@ -5,9 +5,8 @@ FROM ubuntu:xenial-20200706
 COPY docker/files/neurodebian.gpg /usr/local/etc/neurodebian.gpg
 
 # make directories
+RUN mkdir -p /local
 
-RUN mkdir -p /home/data \
-    && mkdir -p /local
 
 # Prepare environment
 RUN apt-get update && \
@@ -32,7 +31,7 @@ RUN curl -o pandoc-2.2.2.1-1-amd64.deb -sSL "https://github.com/jgm/pandoc/relea
     rm pandoc-2.2.2.1-1-amd64.deb
 
 # Installing freesurfer
-RUN curl -fsSL --retry 5 https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/7.1.1/freesurfer-linux-centos6_x86_64-7.1.1.tar.gz | tar zxv --no-same-owner -C /opt \
+RUN curl -sSL https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.1/freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.1.tar.gz | tar zxv --no-same-owner -C /opt \
     --exclude='freesurfer/diffusion' \
     --exclude='freesurfer/docs' \
     --exclude='freesurfer/fsfast' \
